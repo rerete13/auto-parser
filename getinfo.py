@@ -1,7 +1,8 @@
 import requests as rq
 from bs4 import BeautifulSoup as bs
+from functools import cache
 
-
+@cache
 def parser(num):
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
     
@@ -12,7 +13,7 @@ def parser(num):
     return html
 
 
-
+@cache
 def creat_info(num): 
 
     arr_year = parser(num).find_all('div', class_="plate-model-card__content-date-model")

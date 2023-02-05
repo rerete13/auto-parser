@@ -1,7 +1,9 @@
 import requests as rq
 from bs4 import BeautifulSoup as bs
+from functools import cache
 
 
+@cache
 def parser():
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
     
@@ -29,6 +31,21 @@ for i in range(50):
     out = f'{i+1}: {all_cars_edit}'
 
     all_cars_out.append(out)
+
+
+
+#110 - 136
+
+#145 - 171
+links = parser().find_all('a')
+let = 'href'
+all_citys_link = []
+all_citys = []
+for i in range(145, 172):
+    link = f'https://baza-gai.com.ua{links[i][let]}'
+    all_citys_link.append(link)
+    all_citys.append(links[i].text)
+    
 
 
 
