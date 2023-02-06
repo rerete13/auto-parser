@@ -75,127 +75,132 @@ def checck_callback(call):
     city = topauto.all_citys
     city_link = topauto.all_citys_link
 
-    if call.data == 'top10':
+    try:
 
-        btns = types.InlineKeyboardMarkup(row_width=1)
-        btn2 = types.InlineKeyboardButton(text='Топ-50 найпопулярніших нових автомобілі в 2023', callback_data='top50')
-        back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+        if call.data == 'top10':
 
-        btns.add(btn2, back)
+            btns = types.InlineKeyboardMarkup(row_width=1)
+            btn2 = types.InlineKeyboardButton(text='Топ-50 найпопулярніших нових автомобілі в 2023', callback_data='top50')
+            back = types.InlineKeyboardButton(text='Назад', callback_data='back')
 
-        arr_top10 = ''
-        for i in range(10):
-            arr_top10 += topauto.all_cars_out[i] + '\n'
+            btns.add(btn2, back)
 
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=arr_top10, reply_markup=btns)
+            arr_top10 = ''
+            for i in range(10):
+                arr_top10 += topauto.all_cars_out[i] + '\n'
+
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=arr_top10, reply_markup=btns)
+
+            
+        if call.data == 'top50':
+            
+            arr_top50 = ''
+            for i in range(50):
+                arr_top50 += topauto.all_cars_out[i] + '\n'
+
+            btns = types.InlineKeyboardMarkup(row_width=1)
+            back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+            btns.add(back)
+
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=arr_top50, reply_markup=btns)
+
+        if call.data == '3':
+
+            btns = types.InlineKeyboardMarkup(row_width=1)
+            back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+            btns.add(back)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text='Доступні команди:\n\n/info', reply_markup=btns)
+
+
+        if call.data == '4':
+
+            
+
+            btns = types.InlineKeyboardMarkup(row_width=1)
+            btn1 = types.InlineKeyboardButton(text=city[0], callback_data='kyiv')
+            btn2 = types.InlineKeyboardButton(text=city[1], callback_data='kyiv-ob')
+            btn3 = types.InlineKeyboardButton(text=city[2], callback_data='vinnycia')
+            btn4 = types.InlineKeyboardButton(text=city[4], callback_data='dnipro')
+            btn5 = types.InlineKeyboardButton(text=city[10], callback_data='frankivsk')
+            btn6 = types.InlineKeyboardButton(text=city[13], callback_data='lviv')
+            btn7 = types.InlineKeyboardButton(text=city[15], callback_data='odesa')
+            btn8 = types.InlineKeyboardButton(text=city[16], callback_data='poltava')
+            btn9 = types.InlineKeyboardButton(text=city[21], callback_data='harkiv')
+            back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+            btns.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, back)
+
+
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text='Виберіть місто', reply_markup=btns)
+
+
+        if call.data == 'owner':
+
+            btns = types.InlineKeyboardMarkup(row_width=1)
+            back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+            btns.add(back)
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text="Bласник @rerete13\nНа їжу:\n\n5375414131355314", reply_markup=btns)
+
+
+        def bot_out_city(x):
+
+            btns = types.InlineKeyboardMarkup(row_width=1)
+            back = types.InlineKeyboardButton(text='Назад', callback_data='back')
+            btns.add(back)
+
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=f"Це може зайняти деякий час...")
+
+            out = f'{city[x]}\n\n'
+
+            for i in range(len(where.getcity(city_link[x])[0])):
+                out += f'{where.getcity(city_link[x])[0][i]}\n\n'
+
+
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=f"{out}", reply_markup=btns)
+
+
+        if call.data == 'kyiv':
+            bot_out_city(0)
+
+        if call.data == 'kyiv-ob':
+            bot_out_city(1)
+
+        if call.data == 'vinnycia':
+            bot_out_city(2)
+
+        if call.data == 'dnipro':
+            bot_out_city(4)
+
+        if call.data == 'frankivsk':
+            bot_out_city(10)
+
+
+        if call.data == 'lviv':
+            bot_out_city(13)
+
+        if call.data == 'odesa':
+            bot_out_city(15)
+
+        if call.data == 'poltava':
+            bot_out_city(16)
+
+        if call.data == 'harkiv':
+            bot_out_city(21)
 
         
-    if call.data == 'top50':
-        
-        arr_top50 = ''
-        for i in range(50):
-            arr_top50 += topauto.all_cars_out[i] + '\n'
-
-        btns = types.InlineKeyboardMarkup(row_width=1)
-        back = types.InlineKeyboardButton(text='Назад', callback_data='back')
-        btns.add(back)
-
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=arr_top50, reply_markup=btns)
-
-    if call.data == '3':
-
-        btns = types.InlineKeyboardMarkup(row_width=1)
-        back = types.InlineKeyboardButton(text='Назад', callback_data='back')
-        btns.add(back)
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text='Доступні команди:\n\n/info', reply_markup=btns)
-
-
-    if call.data == '4':
-
+        if call.data == 'back':
         
 
-        btns = types.InlineKeyboardMarkup(row_width=1)
-        btn1 = types.InlineKeyboardButton(text=city[0], callback_data='kyiv')
-        btn2 = types.InlineKeyboardButton(text=city[1], callback_data='kyiv-ob')
-        btn3 = types.InlineKeyboardButton(text=city[2], callback_data='vinnycia')
-        btn4 = types.InlineKeyboardButton(text=city[4], callback_data='dnipro')
-        btn5 = types.InlineKeyboardButton(text=city[10], callback_data='frankivsk')
-        btn6 = types.InlineKeyboardButton(text=city[13], callback_data='lviv')
-        btn7 = types.InlineKeyboardButton(text=city[15], callback_data='odesa')
-        btn8 = types.InlineKeyboardButton(text=city[16], callback_data='poltava')
-        btn9 = types.InlineKeyboardButton(text=city[21], callback_data='harkiv')
-        back = types.InlineKeyboardButton(text='Назад', callback_data='back')
-        btns.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, back)
+            btns = types.InlineKeyboardMarkup(row_width=1)
+            btn1 = types.InlineKeyboardButton(text='Топ-10 найпопулярніших нових автомобілі в 2023', callback_data='top10')
+            btn3 = types.InlineKeyboardButton(text='Автосервіси', callback_data='4')
+            btn4 = types.InlineKeyboardButton(text='INFO', callback_data='3')
+            btn5 = types.InlineKeyboardButton(text='Власник', callback_data='owner')
+            btns.add(btn1, btn3, btn4, btn5)
+            
+            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text='Меню', reply_markup=btns)
 
-
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text='Виберіть місто', reply_markup=btns)
-
-
-    if call.data == 'owner':
-
-        btns = types.InlineKeyboardMarkup(row_width=1)
-        back = types.InlineKeyboardButton(text='Назад', callback_data='back')
-        btns.add(back)
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text="Bласник @rerete13\nНа їжу:\n\n5375414131355314", reply_markup=btns)
-
-
-    def bot_out_city(x):
-
-        btns = types.InlineKeyboardMarkup(row_width=1)
-        back = types.InlineKeyboardButton(text='Назад', callback_data='back')
-        btns.add(back)
-
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=f"Це може зайняти деякий час...")
-
-        out = f'{city[x]}\n\n'
-
-        for i in range(len(where.getcity(city_link[x])[0])):
-            out += f'{where.getcity(city_link[x])[0][i]}\n\n'
-
-
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text=f"{out}", reply_markup=btns)
-
-
-    if call.data == 'kyiv':
-        bot_out_city(0)
-
-    if call.data == 'kyiv-ob':
-        bot_out_city(1)
-
-    if call.data == 'vinnycia':
-        bot_out_city(2)
-
-    if call.data == 'dnipro':
-        bot_out_city(4)
-
-    if call.data == 'frankivsk':
-        bot_out_city(10)
-
-
-    if call.data == 'lviv':
-        bot_out_city(13)
-
-    if call.data == 'odesa':
-        bot_out_city(15)
-
-    if call.data == 'poltava':
-        bot_out_city(16)
-
-    if call.data == 'harkiv':
-        bot_out_city(21)
-
-    
-    if call.data == 'back':
-    
-
-        btns = types.InlineKeyboardMarkup(row_width=1)
-        btn1 = types.InlineKeyboardButton(text='Топ-10 найпопулярніших нових автомобілі в 2023', callback_data='top10')
-        btn3 = types.InlineKeyboardButton(text='Автосервіси', callback_data='4')
-        btn4 = types.InlineKeyboardButton(text='INFO', callback_data='3')
-        btn5 = types.InlineKeyboardButton(text='Власник', callback_data='owner')
-        btns.add(btn1, btn3, btn4, btn5)
-        
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, text='Меню', reply_markup=btns)
+    except:
+        print('avoid crash')
 
 
 
